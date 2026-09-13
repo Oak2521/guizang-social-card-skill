@@ -53,7 +53,7 @@ Even when both files contain matching Apple Live Photo metadata, the normal mult
 For each Live Photo, generate these deliverables:
 
 ```text
-local-tests/<slug>/output/
+<task-workspace>/social-card-tasks/<slug>/output/
   IMG_<slug>_LIVE.JPG       # 1080 x 1440 key photo / cover frame
   IMG_<slug>_LIVE.MOV       # platform-duration paired video
   IMG_<slug>_LIVE.pvt/      # AirDrop-friendly Live Photo package

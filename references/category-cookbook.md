@@ -79,7 +79,7 @@ See: `local-tests/demo-image-01-yading/` for a reference build.
 - **Recipes**: M01 (cover with full-bleed art), M08 (boss tier ledger), S07 (takeaway ledger), S11 (chapter timeline), M15 (build before/after).
 - **Style mode**: Editorial dark (ink-classic with paper inverted to near-black) for atmospheric games (黑神话 / Elden Ring). Swiss for esports / competitive data ("胜率 / KDA / 出装").
 - **Text scheme**: Text-on-image is standard for game covers because game art is the primary draw. Use subject mapping and thumbnail checks from `image-overlay.md`; add a localized, image-toned tint only where the title needs support.
-- **Image source**: Wallhaven JSON API (see SKILL.md Step 6) for keyword pulls, official screenshots for specific moments. Always disclose copyright risk and log to `SOURCES.md`. If user opts out of attribution, do not crop the credit out of the image itself.
+- **Image source**: Wallhaven JSON API (see SKILL.md Step 6) for keyword pulls, official screenshots for specific moments. Verify reuse terms before inclusion and log creator, license, required credit and source in `SOURCES.md`. Preserve required attribution with the delivered asset.
 - **Content shape**: 4-6 pages. Cover (game name + playtime) → first impression page → chapter-by-chapter ledger → memorable boss / scene page → verdict.
 - **Pitfalls**: 
   1. **Score-card seriousness** (8.5/10 in a giant block). We're not IGN — keep the verdict as one short clause, not a number.

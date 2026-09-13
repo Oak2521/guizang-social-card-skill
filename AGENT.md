@@ -28,31 +28,31 @@
 所有测试生成的产物都放到：
 
 ```text
-local-tests/
+<task-workspace>/social-card-tasks/
 ```
 
 推荐按一次任务或一个测试案例建独立子目录：
 
 ```text
-local-tests/<case-name>/
+<task-workspace>/social-card-tasks/<case-name>/
 ```
 
 每个测试目录可以包含自己的 `index.html`、`render.cjs` / `render.mjs`、`assets/`、`output/`、`SOURCES.md` 等文件。例如：
 
 ```text
-local-tests/social-card-example/
-local-tests/social-card-example/index.html
-local-tests/social-card-example/render.cjs
-local-tests/social-card-example/assets/
-local-tests/social-card-example/output/
+<task-workspace>/social-card-tasks/social-card-example/
+<task-workspace>/social-card-tasks/social-card-example/index.html
+<task-workspace>/social-card-tasks/social-card-example/render.cjs
+<task-workspace>/social-card-tasks/social-card-example/assets/
+<task-workspace>/social-card-tasks/social-card-example/output/
 ```
 
 原则：
 
-- 试跑 HTML 放在 `local-tests/<case-name>/`。
-- 渲染出来的 PNG/JPEG/WebP 放在 `local-tests/<case-name>/output/`。
-- 下载或临时使用的图片、截图、素材放在 `local-tests/<case-name>/assets/`。
+- 试跑 HTML 放在 `<task-workspace>/social-card-tasks/<case-name>/`。
+- 渲染出来的 PNG/JPEG/WebP 放在 `<task-workspace>/social-card-tasks/<case-name>/output/`。
+- 下载或临时使用的图片、截图、素材放在 `<task-workspace>/social-card-tasks/<case-name>/assets/`。
 - 一次性调试脚本放在对应测试目录里；只有通用校验或 Skill 本体需要的脚本才放根目录。
 - 如果要把某个测试案例升级为正式示例，先明确它属于项目文档、参考资料还是发布资产，再移动到合适位置；不要默认留在根目录。
 
-`local-tests/` 已在 `.gitignore` 中忽略，适合承载这些本地测试和生成产物。保持这个边界，能避免 Skill 本体再次混入大量一次性文件。
+`<task-workspace>/social-card-tasks/` 位于用户任务工作目录，不依赖安装仓库的 `.gitignore`。保持这个边界，能避免 Skill 本体再次混入大量一次性文件。
