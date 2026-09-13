@@ -9,7 +9,7 @@ Create polished social card packages for Xiaohongshu/Rednote, WeChat Official Ac
 
 This skill is self-contained. It borrows visual principles from the Guizang PPT style system, but it must not edit the original PPT skill, its templates, or its references. If the original PPT skill is available, you may read it for reference only.
 
-Generated work must live in a task folder, not in the skill root. Default to `local-tests/<slug>/` inside this repository, or use the explicit output folder requested by the user. Do not create root-level task folders such as `social-card-*`, `livephoto-*`, `wechat-*`, `output/`, or loose rendered assets next to `SKILL.md`.
+Generated work must live in a task folder, not in the skill root. Default to `<task-workspace>/social-card-tasks/<slug>/` outside the installed skill, or use the explicit output folder requested by the user. Do not create root-level task folders such as `social-card-*`, `livephoto-*`, `wechat-*`, `output/`, or loose rendered assets next to `SKILL.md`.
 
 ## What To Produce
 
@@ -203,7 +203,7 @@ Replace the single placeholder poster after `<!-- POSTERS_HERE -->` with one `<s
 
 Default implementation pattern:
 
-- Create a task folder under `local-tests/<slug>/` by default, or inside the user-requested output folder. Never put generated task folders, rendered images, MOV files, `.pvt` packages, or downloaded sources in the skill root next to `SKILL.md`.
+- Create a task folder under `<task-workspace>/social-card-tasks/<slug>/` outside the installed skill by default, or inside the user-requested output folder. Never put generated task folders, rendered images, MOV files, `.pvt` packages, or downloaded sources in the skill root next to `SKILL.md`.
 - Put source images in `assets/`.
 - Start from the seed template copied in Step 4.5, not a blank file. Prefer changing only the `<!-- POSTERS_HERE -->` region page-to-page. If a task needs custom layout CSS, add one clearly named task-scoped block in the copied file and keep semantic defaults reset (`figure { margin:0; }`, no browser-default spacing surprises).
 - Use Playwright or a browser screenshot tool to export each `.poster` or `.cover` node.
@@ -255,13 +255,13 @@ When the user has no images:
 
 When the user has no screenshots/photos and a generated bitmap would not fit the page's role (e.g. Editorial atmosphere shot, outdoor / lifestyle backdrop, game cover art, real-world product shot), fetch from the web instead of leaving the page thin.
 
-Policy: **grab first, disclose after, let the user decide on attribution.** Do not pre-filter sources by guessed license — the user is the rights holder of the final composition and decides what is acceptable.
+Policy: verify the source page and applicable license before incorporating an image. Preserve source URL, creator, license/version, required credit and modification notices with the asset. Unclear rights remain unverified: use another verified source or a user-authorized asset; do not treat a composite as ownership of its components.
 
-Recommended sources, in order of preference. **All five below are free-tier libraries with no required licensing fees**; we do not pull from paid stock sites (视觉中国 / Getty / 站酷海洛 etc.).
+Recommended sources, in order of preference. These are discovery sources, not a blanket reuse license. Check each asset; do not purchase paid stock without authorization.
 
 1. **Unsplash** — `https://unsplash.com/s/photos/<keyword>`. Strong for outdoor / lifestyle / atmospheric backdrops. English keywords work best. License is permissive but verify case by case.
 2. **Pexels** — `https://www.pexels.com/search/<keyword>/` or `https://www.pexels.com/zh-cn/search/<keyword>/`. **Supports Chinese keyword search natively** — fills Unsplash's gap on 国内场景 (中文街景 / 国风物件 / 本地地名). Use this first when the subject is China-specific or the keyword is Chinese. Free under Pexels License.
-3. **Flickr CC-licensed pool** — `https://www.flickr.com/search/?text=<keyword>&license=2%2C3%2C4%2C5%2C6%2C9`. The license filter (`license=2,3,4,5,6,9`) restricts to Creative Commons photos. Fills the "documentary realness" gap: street photography, people-in-context, real interiors, non-styled scenes that Unsplash/Pexels lack. Always preserve CC attribution if the user opts in.
+3. **Flickr CC-licensed pool** — `https://www.flickr.com/search/?text=<keyword>&license=2%2C3%2C4%2C5%2C6%2C9`. The license filter (`license=2,3,4,5,6,9`) restricts to Creative Commons photos. Fills the "documentary realness" gap: street photography, people-in-context, real interiors, non-styled scenes that Unsplash/Pexels lack. Always preserve attribution and other terms required by the specific CC license; check commercial-use and adaptation restrictions against the task.
 4. **Wallhaven** — `https://wallhaven.cc/search?q=<keyword>`. Strong for game / anime / wallpaper themes. Content is user-uploaded, rights are unverified.
 5. **Direct web search** — when a specific subject is needed (a product render, a game still, a historical photo). Use WebFetch / WebSearch to find a candidate URL.
 
@@ -271,26 +271,9 @@ How to fetch:
 
 - Use WebFetch or `curl` to download the image into the task folder's `assets/` directory.
 - Name the file by purpose, not by hash: `assets/hero-mountain.jpg`, `assets/ui-pulse-card.png`.
-- Record the source URL in a `assets/SOURCES.md` file next to the images (one line per file: `hero-mountain.jpg ← <url>`). Always do this even if the user declines attribution in the final image — it preserves provenance for the human author.
-
-After fetching, surface the provenance to the user **before** finalizing the design:
-
-```
-我从 <site> 取了这些图：
-- assets/hero-mountain.jpg — <url>
-- assets/ui-pulse-card.png — <url>
-
-⚠️ 版权未经核实。请你判断是否可用。
-是否需要在图文中标注来源？
-- 要：我把 "Photo · <site> · @<author>" 加到对应页脚 / 角标。
-- 不要：原样使用,不加注释。
-```
-
-If the user picks "标注" — add a small `mono` caption (Swiss: `.t-meta` 18-20px in corner; Editorial: `.label` next to the image well). Never crowd the caption into the layout's focal area.
-
-If the user picks "不标注" — proceed silently. The provenance still lives in `assets/SOURCES.md` for the user's own records.
-
-If an image is only one element among many in a composite (e.g. one of nine photos in a matrix), the user may reasonably skip attribution. Do not force a credit label that breaks the layout.
+- Record filename, source URL, creator, license/version, required attribution and modifications in `assets/SOURCES.md` beside the images.
+- Carry required attribution into the delivered image, caption or accompanying credits as allowed by that license. Agree a layout that keeps credits readable; if the requested layout cannot satisfy terms, replace the asset. Optional credits may follow the user's preference; required credits are not opt-in.
+- Report unavailable license evidence before finalizing the affected asset. Keep independent layout work moving.
 
 ### 7. Deliver
 
@@ -308,7 +291,7 @@ Final response (after the user has reviewed or asked for auto-check) should incl
 - Output folder path.
 - Rendered images shown inline with absolute paths when useful.
 - A short note on dimensions and verification (or "not yet validated, awaiting your review").
-- For any image fetched from the web: source URL + site + the attribution decision the user made.
+- For any image fetched from the web: source URL, creator, license and where required attribution is delivered.
 - For Live Photo: the `.pvt` package path, the debug `JPG + MOV` pair, target platform duration, and validation summary.
 - For Live Photo publishing: remind the user of two things: platform limits (`5s` Xiaohongshu, `3s` WeChat Official Account) and publish path (AirDrop the `.pvt` package as one item to iPhone, then publish from the matching mobile app path; desktop/web upload paths generally cannot recognize `.pvt` as a publishable Live Photo).
 - If the user cannot use the iPhone/AirDrop publishing path (e.g. desktop-only workflow, Android, or a platform that does not support Live Photo), offer a degraded delivery: export a short looping GIF or a silent MP4 clip from the same MOV source. The GIF/MP4 keeps the motion evidence but loses the Live Photo tap-to-play experience. Confirm with the user before switching to this fallback.
@@ -317,7 +300,7 @@ Final response (after the user has reviewed or asked for auto-check) should incl
 ## Non-Negotiables
 
 - Never edit the original Guizang PPT skill or any upstream skill copied from elsewhere.
-- Never create generated work in the skill root. All task artifacts must be under `local-tests/<slug>/` by default, or under a user-requested output folder. Root-level generated folders like `social-card-*`, `livephoto-*`, `wechat-*`, and loose output assets are forbidden.
+- Never create generated work in the skill root. All task artifacts must be under `<task-workspace>/social-card-tasks/<slug>/` outside the installed skill by default, or under a user-requested output folder. Root-level generated folders like `social-card-*`, `livephoto-*`, `wechat-*`, and loose output assets are forbidden.
 - Do not create random decorative SVG ovals, blobs, rain drops, stickers, or meaningless circles.
 - Do not use nested cards or generic SaaS card layouts as the default.
 - Do not let text overflow, touch the edge, or collide with the footer band. Pin `.foot` with `margin-top: auto` inside a flex column, never with `position: absolute` over growing content.

@@ -2,10 +2,10 @@
 
 ## Recommended Folder Shape
 
-Create a task folder under `local-tests/` by default:
+Create a task folder under `<task-workspace>/social-card-tasks/` by default:
 
 ```text
-local-tests/<slug>/
+<task-workspace>/social-card-tasks/<slug>/
   index.html
   render.cjs
   assets/
@@ -14,9 +14,9 @@ local-tests/<slug>/
 
 Use descriptive slugs:
 
-- `local-tests/social-card-doubao-input`
-- `local-tests/social-card-hiking-outfit`
-- `local-tests/wechat-ai-card-skill-cover`
+- `<task-workspace>/social-card-tasks/social-card-doubao-input`
+- `<task-workspace>/social-card-tasks/social-card-hiking-outfit`
+- `<task-workspace>/social-card-tasks/wechat-ai-card-skill-cover`
 
 If the user explicitly names another output folder, use that folder instead. Do not create generated task folders or rendered assets in the skill root next to `SKILL.md`. Root-level folders such as `social-card-*`, `livephoto-*`, `wechat-*`, `output/`, and loose `.png` / `.jpg` / `.mov` / `.pvt` artifacts are not allowed for new work.
 
