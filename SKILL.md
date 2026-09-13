@@ -9,7 +9,7 @@ Create polished social card packages for Xiaohongshu/Rednote, WeChat Official Ac
 
 This skill is self-contained. It borrows visual principles from the Guizang PPT style system, but it must not edit the original PPT skill, its templates, or its references. If the original PPT skill is available, you may read it for reference only.
 
-Generated work must live in a task folder, not in the skill root. Default to `<task-workspace>/social-card-<slug>/` outside the installed skill, or use the explicit output folder requested by the user. Do not create root-level task folders such as `social-card-*`, `livephoto-*`, `wechat-*`, `output/`, or loose rendered assets next to `SKILL.md`.
+Generated work must live in a task folder, not in the skill root. Default to `<task-workspace>/social-card-tasks/<slug>/` outside the installed skill, or use the explicit output folder requested by the user. Do not create root-level task folders such as `social-card-*`, `livephoto-*`, `wechat-*`, `output/`, or loose rendered assets next to `SKILL.md`.
 
 ## What To Produce
 
@@ -203,7 +203,7 @@ Replace the single placeholder poster after `<!-- POSTERS_HERE -->` with one `<s
 
 Default implementation pattern:
 
-- Create a task folder under `<task-workspace>/social-card-<slug>/` outside the installed skill by default, or inside the user-requested output folder. Never put generated task folders, rendered images, MOV files, `.pvt` packages, or downloaded sources in the skill root next to `SKILL.md`.
+- Create a task folder under `<task-workspace>/social-card-tasks/<slug>/` outside the installed skill by default, or inside the user-requested output folder. Never put generated task folders, rendered images, MOV files, `.pvt` packages, or downloaded sources in the skill root next to `SKILL.md`.
 - Put source images in `assets/`.
 - Start from the seed template copied in Step 4.5, not a blank file. Prefer changing only the `<!-- POSTERS_HERE -->` region page-to-page. If a task needs custom layout CSS, add one clearly named task-scoped block in the copied file and keep semantic defaults reset (`figure { margin:0; }`, no browser-default spacing surprises).
 - Use Playwright or a browser screenshot tool to export each `.poster` or `.cover` node.
@@ -300,7 +300,7 @@ Final response (after the user has reviewed or asked for auto-check) should incl
 ## Non-Negotiables
 
 - Never edit the original Guizang PPT skill or any upstream skill copied from elsewhere.
-- Never create generated work in the skill root. All task artifacts must be under `<task-workspace>/social-card-<slug>/` outside the installed skill by default, or under a user-requested output folder. Root-level generated folders like `social-card-*`, `livephoto-*`, `wechat-*`, and loose output assets are forbidden.
+- Never create generated work in the skill root. All task artifacts must be under `<task-workspace>/social-card-tasks/<slug>/` outside the installed skill by default, or under a user-requested output folder. Root-level generated folders like `social-card-*`, `livephoto-*`, `wechat-*`, and loose output assets are forbidden.
 - Do not create random decorative SVG ovals, blobs, rain drops, stickers, or meaningless circles.
 - Do not use nested cards or generic SaaS card layouts as the default.
 - Do not let text overflow, touch the edge, or collide with the footer band. Pin `.foot` with `margin-top: auto` inside a flex column, never with `position: absolute` over growing content.
